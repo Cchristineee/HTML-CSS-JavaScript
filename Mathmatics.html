@@ -1,0 +1,205 @@
+<!-- a computer-assisted instruction program to teach an elementary-school student various forms of arithmetic -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> Mathematics </title>
+        
+        <script type = "text/javascript">
+            function addition(){
+			choice = window.prompt("What is " + x + "+" + y)
+ 			var newchoice = parseInt(choice);
+			if (newchoice == (x + y))
+			{
+				if(count == 0)
+				{	
+					check++;
+				}
+				answer = true;
+				// Math.floor(Math.random() * 4);
+				window.alert(correct());
+			}
+			else
+				{
+					answer = false;
+					// var ic = Math.floor(Math.random() * 4);
+					window.alert(wrong());
+				}
+			}
+
+		function subtraction(){
+			choice = window.prompt("What is " + x + "-" + y )
+			var newchoice = parseInt(choice);
+			if (newchoice == (x -y))
+				{
+					if(count == 0)
+						{
+							check++;
+						}
+						answer = true;
+						// var c = Math.floor(Math.random() * 4);
+						window.alert(correct());
+				}
+				else
+				{
+					answer = false;
+					// var ic = Math.floor(Math.random() * 4);
+					window.alert(wrong());
+				}
+			}
+
+		function multiplication(){
+			choice=window.prompt("What is " + x + "×" + y)
+			var newchoice = parseInt(choice);
+			if (newchoice == (x * y))
+			{
+				if(count == 0)
+					{
+						check++;
+					}
+					answer = true;
+					// var c = Math.floor(Math.random() * 4);
+					window.alert(correct());
+			}
+			else
+			{
+				answer = false;
+				// var ic = Math.floor(Math.random() * 4);
+				window.alert(wrong());
+			}
+		}
+
+		function division(){
+			choice = window.prompt("What is " + x + "➗" + y );
+			var newchoice = parseInt(choice);
+			var res = (x/y).toFixed(2);
+			var newres = parseInt(res);
+			if (newchoice == newres)
+				{
+					if(count == 0)
+						{
+							check++;
+						}
+						answer = true;
+						window.alert(correct());
+					}
+					else
+						{
+							answer = false;
+							// var ic = Math.floor(Math.random() * 4);
+							window.alert(wrong());
+						}
+					}
+			var difficulty = window.prompt("Enter a Grade Level. 1 (Single Digit Numbers Only) 2 (Double Digit Numbers Only) 3 (Triple Digit Numbers Only)");
+			var newdifficulty = parseInt(difficulty);
+			var number;
+			var n;
+			if(newdifficulty == 1)
+			{
+				number = 10;
+				n = 0;
+			}
+
+			else if(newdifficulty == 2)
+			{
+				number = 100;
+				n = 10;
+			}
+
+			else{
+				number = 1000;
+				n = 100;
+			}
+			var answer = false;
+			var total = 0;
+			//select type of question
+			var problemChoice = window.prompt("Select the type of math problems you wish to do.  \n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.A Random Set");
+			var newproblemchoice = parseInt(problemChoice);
+			var check = 0;
+			for(var i = 0; i < 3; i++)
+			{
+				var x = Math.floor(Math.random() * number +n);
+				var y = Math.floor(1+Math.random() * number +n);
+				// var guess = questions(x, y);
+				//guess = Number(guess);
+				var count = 0;
+				var choice = 0;
+				while(answer == false)
+				{
+					if(newproblemchoice == 1)
+					{
+						addition();
+					}
+					else if(newproblemchoice == 2){
+						subtraction();
+					}
+					else if(newproblemchoice == 3){
+						multiplication();
+					}
+					else if(newproblemchoice == 4){
+						division();
+					}
+					else
+					{
+						var diff = Math.floor(Math.random() * 4);
+						switch(Number(diff))
+						{
+						case 0:
+							addition();
+							break;
+						case 1:
+							subtraction();
+							break;
+						case 2:
+							multiplication();
+							break;
+						case 3:
+							division();
+							break;
+						}
+					}
+					count++;
+				}
+				answer = false;
+				// sentinel++;
+			}
+			total = (check/3)*100;
+			//total=check/10;
+			document.write("<br>" + "Your total score is " + total);
+			if(total <= 75)
+			{
+				document.write("<br>" + "Please ask your teacher for some extra help. ");
+			}
+		document.write("<br>" + "Press the refresh button to restart the quiz. ");
+
+		function correct(){
+			var r_text = new Array ();
+			r_text[0] = "Very good!";
+			r_text[1] = "Excellent!";
+			r_text[2] = "Nice work!";
+			r_text[3] = "Keep up the good work!";
+
+			//var i = r-text[Math.floor(r_text[] * Math.random());
+			var i = r_text[Math.floor(Math.random() * r_text.length)];
+			return i;
+		}
+
+		function wrong(){
+			var r_text = new Array ();
+			r_text[0] = "On no try again.";
+			r_text[1] = " Try once more.";
+			r_text[2] = "Dont give up.";
+			r_text[3] = "Nope, Keep trying.";s
+			//var i = r-text[Math.floor(r_text[] * Math.random());
+			var i = r_text[Math.floor(Math.random() * r_text.length)];
+			return i;
+		}
+
+		function questions(a, b){
+			return (window.prompt("What is " + a + " times " + b ));
+		}
+        </script>
+</head>
+</html>
