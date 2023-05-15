@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Tic-Tac-toe</title>
+    <link rel="stylesheet" type="text/css" href="Tic-tac-toe.css">
+</head>
+<body>
+    <h1>Tick-tac-toe</h1>
+
+    <table id="gameBoard">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <p id="turn-text">Player 1's Turn</p>
+    <button id="new-game-btn">New Game</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentPlayer = 1;
+            let gameEnded = false;
+            const playerSymbols = ['X', 'O'];
+            const playerTurn = ["Player 1's Turn", "Player 2's Turn"];
+
+            const gameBoard = document.getElementById("gameBoard");
+            const cells = gameBoard.getElementsByTagName("td");
+            const turnText = document.getElementById("turn-text");
+            const newGameBtn = document.getElementById("new-game-btn");
+
+            // Add click event listener to each cell
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].addEventListener("click", function() {
+                    if (cells[i].innerHTML === "" && !gameEnded) {
+                        cells[i].innerHTML = playerSymbols[currentPlayer - 1];
+                        cells[i].classList.add("disabled");
+                        currentPlayer = currentPlayer === 1 ? 2 : 1;
+                        turnText.innerHTML = playerTurn[currentPlayer - 1];
+                        checkWin();
+                    }
+                });
+            }
+
+            // Add click event listener to the New Game button
+            newGameBtn.addEventListener("click", function() {
+                resetGame();
+            });
+
+            function checkWin() {
+                const winningCombinations = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                    [0, 4, 8], [2, 4, 6] // Diagonals
+                ];
+
+                for (let combination of winningCombinations) {
+                    const [a, b, c] = combination;
+                    // Check if the cells contain the same symbol
+                    if (
+                        cells[a].innerHTML === playerSymbols[currentPlayer - 1] &&
+                        cells[b].innerHTML === playerSymbols[currentPlayer - 1] &&
+                        cells[c].innerHTML === playerSymbols[currentPlayer - 1]
+                    ) {
+                        // Display the winner
+                        turnText.innerHTML = "Player " + currentPlayer + " wins!";
+                        gameEnded = true;
+                        // Disable all cells
+                        for (let i = 0; i < cells.length; i++) {
+                            cells[i].classList.add("disabled");
+                        }
+                        return;
+                    }
+                }
+                
+                // Check if it's a tie
+                if (isTie()) {
+                    turnText.innerHTML = "It's a tie!";
+                    gameEnded = true;
+                }
+            }
+
+            function isTie() {
+                for (let i = 0; i < cells.length; i++) {
+                    if (cells[i].innerHTML === "") {
+                        return false; // There are still empty cells, not a tie
+                    }
+                }
+                return true; // All cells are filled, it's a tie
+            }
+
+            function resetGame() {
+                currentPlayer = 1;
+                gameEnded = false;
+                turnText.innerHTML = playerTurn[currentPlayer - 1];
+                for (let i = 0; i < cells.length; i++) {
+                    cells[i].innerHTML = "";
+                    cells[i].classList.remove("disabled");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
